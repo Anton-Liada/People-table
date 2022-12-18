@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { IUsersState } from '../../types/types';
+import { Status } from '/src/types/enums';
 
 const initialState: IUsersState = {
   users: [],
-  status: 'idle',
+  status: Status.IDLE,
   error: null,
 };
 
@@ -21,14 +22,14 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, state => {
-        state.status = 'loading';
+        state.status = Status.LOADING;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = Status.SUCCEEDED;
         state.users = action.payload;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = Status.FAILED;
         state.error = action.error.message || null;
       });
   },

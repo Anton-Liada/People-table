@@ -17,6 +17,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.0",
     "@types/node": "^18.11.15",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.6",
