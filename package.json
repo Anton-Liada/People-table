@@ -1,0 +1,71 @@
+{
+  "name": "react-ts-template",
+  "version": "1.0.0",
+  "description": "",
+  "source": "public/index.html",
+  "scripts": {
+    "predeploy": "rm -rf build & npm run build",
+    "deploy": "gh-pages -d public",
+    "start": "parcel -p 7000 --open",
+    "server": "json-server -w ./src/server/data.json --port 4000",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "build": "parcel build",
+    "typecheck": "npx tsc",
+    "checkformat": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\"",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.15",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "classnames": "^2.3.2",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.31.11",
+    "gh-pages": "^4.0.0",
+    "husky": "^8.0.2",
+    "json-server": "^0.17.1",
+    "lint-staged": "^13.1.0",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.1.1",
+    "process": "^0.11.10",
+    "react-router": "^6.4.4",
+    "react-router-dom": "^6.4.4",
+    "stylelint": "^14.15.0",
+    "stylelint-config-recommended": "^9.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/react-redux": "^7.1.24",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.css": "stylelint --fix",
+    "*.{js,jsx,ts,tsx,json}": "prettier --write"
+  }
+}
