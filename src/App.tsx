@@ -1,23 +1,34 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './features/hooks/hooks';
-import { fetchUsers } from './features/users/usersSlice';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Header } from './components/Header';
+import { HomePage } from './pages/HomePage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { UsersPage } from './pages/UsersPage';
 
 export const App: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector(state => state.users.users);
-  const userStatus = useAppSelector(state => state.users.status);
 
-  useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatch(fetchUsers());
-    }
-  }, [userStatus, dispatch]);
-
-  console.log(users)
 
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <>
+      <Header />
+
+      <Routes>
+        <Route path="*" element={<NotFoundPage />} />
+
+        <Route path="/" element={<HomePage />} />
+
+        <Route path="users">
+          <Route
+            index
+            element={(<UsersPage />)}
+          />
+
+          <Route
+            path=":id"
+            element={(<UsersPage />)}
+          />
+        </Route>
+      </Routes>
+    </>
   );
 };

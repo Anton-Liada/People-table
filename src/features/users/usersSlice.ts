@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IUser, IUsersState } from '../../types/types';
+import { IUsersState } from '../../types/types';
 
 const initialState: IUsersState = {
   users: [],
