@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IUsersState } from '../../types/types';
+import { IUser, IUsersState } from '../../types/types';
 import { Status } from '/src/types/enums';
 
 const initialState: IUsersState = {
@@ -9,11 +9,38 @@ const initialState: IUsersState = {
   error: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await axios.get('http://localhost:4000/users');
+export const fetchUsers = createAsyncThunk('users/fetchUsers',
+  async () => {
+    const response = await axios.get('http://localhost:4000/users');
 
-  return response.data;
-});
+    return response.data;
+  }
+);
+
+export const addNewUser = createAsyncThunk('users/addNewUser',
+  async (newUser: IUser) => {
+    const response = await axios.post('http://localhost:4000/users', newUser)
+
+    return response.data;
+  }
+);
+
+export const deleteUser = createAsyncThunk('users/deleteNewUser',
+  async (id: number) => {
+    await axios.delete(`http://localhost:4000/users/${id}`)
+
+    return id;
+  }
+);
+
+const setStatus = (state: IUsersState) => {
+  state.status = Status.LOADING;
+};
+
+const setError = (state: IUsersState) => {
+  state.status = Status.FAILED;
+  state.error = 'Something went wrong';
+};
 
 const usersSlice = createSlice({
   name: 'users',
@@ -21,17 +48,28 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchUsers.pending, state => {
-        state.status = Status.LOADING;
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
+      .addCase(fetchUsers.pending, setStatus)
+      .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
         state.status = Status.SUCCEEDED;
         state.users = action.payload;
       })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = Status.FAILED;
-        state.error = action.error.message || null;
-      });
+      .addCase(fetchUsers.rejected, setError);
+
+    builder
+      .addCase(addNewUser.pending, setStatus)
+      .addCase(addNewUser.fulfilled, (state, action: PayloadAction<IUser>) => {
+        state.status = Status.SUCCEEDED;
+        state.users.push(action.payload)
+      })
+      .addCase(addNewUser.rejected, setError);
+
+    builder
+      .addCase(deleteUser.pending, setStatus)
+      .addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) => {
+        state.status = Status.SUCCEEDED;
+        state.users = state.users.filter(user => user.id !== action.payload);
+      })
+      .addCase(deleteUser.rejected, setError);
   },
 });
 

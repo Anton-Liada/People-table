@@ -12,3 +12,10 @@ export interface IUsersState {
   status: string;
   error: string | null;
 }
+
+export interface IFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+}

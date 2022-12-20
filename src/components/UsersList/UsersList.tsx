@@ -11,6 +11,7 @@ export const UsersList: React.FC = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.users.users);
   const userStatus = useAppSelector(state => state.users.status);
+  const errorMessage = useAppSelector(state => state.users.error)
 
   useEffect(() => {
     if (userStatus === Status.IDLE) {
@@ -20,9 +21,7 @@ export const UsersList: React.FC = () => {
 
   let content;
 
-  if (userStatus === Status.LOADING) {
-    content = <Loader />
-  } else if (userStatus === Status.SUCCEEDED) {
+  if (userStatus === Status.SUCCEEDED) {
     const orderedUsers = users
       .slice()
       .sort((a, b) => b.id - a.id);
@@ -30,27 +29,33 @@ export const UsersList: React.FC = () => {
     content = orderedUsers.map(user => (
       <UserExcerpt key={user.id} user={user} />
     ))
-  } else if (userStatus === Status.FAILED) {
-    content = <div>somthing went wrong</div>
   }
 
   return (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th className="content-table__th">ID</th>
-          <th className="content-table__th">Name</th>
-          <th className="content-table__th">Last Name</th>
-          <th className="content-table__th">Sex</th>
-          <th className="content-table__th">Email</th>
-          <th className="content-table__th">Address</th>
-          <th className="content-table__th">Actions</th>
-        </tr>
-      </thead>
+    <>
+      {userStatus === Status.LOADING && <Loader />}
 
-      <tbody>
-        {content}
-      </tbody>
-    </table>
+      {userStatus === Status.FAILED && <p>{errorMessage}</p>}
+
+      {userStatus === Status.SUCCEEDED &&
+        (<table className="content-table">
+          <thead>
+            <tr>
+              <th className="content-table__th">ID</th>
+              <th className="content-table__th">Name</th>
+              <th className="content-table__th">Last Name</th>
+              <th className="content-table__th">Sex</th>
+              <th className="content-table__th">Email</th>
+              <th className="content-table__th">Address</th>
+              <th className="content-table__th">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {content}
+          </tbody>
+        </table>)
+      }
+    </>
   )
 }
