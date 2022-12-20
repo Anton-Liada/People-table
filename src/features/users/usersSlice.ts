@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { IUser, IUsersState } from '../../types/types';
 import { Status } from '/src/types/enums';
@@ -64,7 +64,6 @@ const usersSlice = createSlice({
       .addCase(addNewUser.rejected, setError);
 
     builder
-      .addCase(deleteUser.pending, setStatus)
       .addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) => {
         state.status = Status.SUCCEEDED;
         state.users = state.users.filter(user => user.id !== action.payload);

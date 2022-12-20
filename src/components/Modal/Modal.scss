@@ -1,0 +1,65 @@
+.modal-card {
+  height: 430px;
+  width: 340px;
+  border-radius: 10px;
+
+  &__label {
+    width: 600;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__input {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    border: 1px solid #C7DAF0;
+    border-radius: 3px;
+    transition: border-color 0.3s;
+
+    &:hover{
+      border-color: rgb(81, 151, 231);
+    }
+  }
+
+  &__message {
+    height: 15px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: red;
+  }
+
+  &__select {
+    border-radius: 4px;
+    font-size: 0.8rem;
+    background-color: rgb(77, 105, 143);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 1px 1px 4px #000;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.modal-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-card-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+}

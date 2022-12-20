@@ -5,9 +5,11 @@ import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
 import { fetchUsers } from '/src/features/users/usersSlice';
 import { Status } from '/src/types/enums';
 
+type Props = {
+  isOpenModal: () => void;
+}
 
-
-export const UsersList: React.FC = () => {
+export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.users.users);
   const userStatus = useAppSelector(state => state.users.status);
@@ -17,6 +19,7 @@ export const UsersList: React.FC = () => {
     if (userStatus === Status.IDLE) {
       dispatch(fetchUsers());
     }
+
   }, [userStatus, dispatch]);
 
   let content;
@@ -27,17 +30,21 @@ export const UsersList: React.FC = () => {
       .sort((a, b) => b.id - a.id);
 
     content = orderedUsers.map(user => (
-      <UserExcerpt key={user.id} user={user} />
+      <UserExcerpt
+        key={user.id}
+        user={user}
+        isOpenModal={isOpenModal}
+      />
     ))
   }
 
   return (
     <>
-      {userStatus === Status.LOADING && <Loader />}
+      {(userStatus === Status.LOADING) && <Loader />}
 
-      {userStatus === Status.FAILED && <p>{errorMessage}</p>}
+      {(userStatus === Status.FAILED) && <p>{errorMessage}</p>}
 
-      {userStatus === Status.SUCCEEDED &&
+      {(userStatus === Status.SUCCEEDED) &&
         (<table className="content-table">
           <thead>
             <tr>

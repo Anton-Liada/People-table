@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { deleteUser } from "../../features/users/usersSlice";
 import { IUser } from "../../types/types";
+import { Button } from "../Button";
 import { useAppDispatch } from "/src/features/hooks/hooks";
-import { Status } from "/src/types/enums";
 
 type Props = {
   user: IUser;
+  isOpenModal: () => void;
 }
 
-export const UserExcerpt: React.FC<Props> = ({ user }) => {
+export const UserExcerpt: React.FC<Props> = ({ user, isOpenModal }) => {
   const {
     id,
     first_name,
@@ -39,18 +40,8 @@ export const UserExcerpt: React.FC<Props> = ({ user }) => {
       <td>{address}</td>
 
       <td>
-        <Link to={{
-          pathname: `/user/${id}`,
-          search: location.search,
-        }}>
-          <button>
-            update
-          </button>
-        </Link>
-
-        <button onClick={handleRemoveUser}>
-          delete
-        </button>
+        <Button content="update" onClick={isOpenModal} />
+        <Button onClick={handleRemoveUser} content='delete' />
       </td>
     </tr >
   );

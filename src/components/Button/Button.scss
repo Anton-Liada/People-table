@@ -1,0 +1,18 @@
+.button {
+  width: 100px;
+  height: 33px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: rgb(77, 105, 143);
+  color: aliceblue;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background-color: rgb(115, 123, 167);
+  }
+}
