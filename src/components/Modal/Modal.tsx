@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../features/hooks/hooks';
 import { addNewUser, updateUser } from '../../features/users/usersSlice';
 import { InputErrors } from '../../types/enums';
 import { IFormValues, IUser } from '../../types/types';
 import { Button } from '../Button';
 import { IconClose } from '../Icons/IconClose';
 import './Modal.scss';
-import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
 
 type Props = {
   setIsOpenModal: (value: boolean) => void;
