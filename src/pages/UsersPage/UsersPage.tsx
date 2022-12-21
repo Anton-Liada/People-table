@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { Modal } from '../../components/Modal'
 import { UsersList } from '../../components/UsersList'
@@ -19,11 +18,6 @@ export const UsersPage: React.FC = () => {
   return (
     <>
       <h2>Users Page</h2>
-      {/* <Link to='/addUserForm'>
-        <button>
-          Add new User
-        </button>
-      </Link> */}
 
       {isAdding &&
         < Modal
