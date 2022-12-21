@@ -4,6 +4,7 @@ import { addNewUser, updateUser } from '../../features/users/usersSlice';
 import { InputErrors } from '../../types/enums';
 import { IFormValues, IUser } from '../../types/types';
 import { Button } from '../Button';
+import { IconClose } from '../Icons/IconClose';
 import './Modal.scss';
 import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
 
@@ -118,7 +119,11 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
             {isAdding ? 'Create person' : `Update person`}
           </div>
 
-          <Button onClick={() => setIsOpenModal(false)} content="close" />
+          <Button
+            onClick={() => setIsOpenModal(false)}
+            icon={<IconClose />}
+            isClose={true}
+          />
         </header>
 
         <form className="modal-card-body" onSubmit={handleSubmit(onSubmit)}>

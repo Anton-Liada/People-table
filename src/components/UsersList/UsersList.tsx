@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../features/hooks/hooks';
+import { fetchUsers } from '../../features/users/usersSlice';
+import { Status } from '../../types/enums';
+import { IUser } from '../../types/types';
 import { Loader } from '../Loader';
 import { UserExcerpt } from '../UserExcerpt';
 import './UsersList.scss';
-import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
-import { fetchUsers } from '/src/features/users/usersSlice';
-import { Status } from '/src/types/enums';
-import { IUser } from '/src/types/types';
 
 type Props = {
   isOpenModal: (user: IUser | null) => void;
@@ -42,7 +42,7 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
 
       {fetchRequestStatus === Status.FAILED && <p>{errorMessage}</p>}
 
-      {fetchRequestStatus === Status.SUCCEEDED && (
+      {isLoading && (
         <table className="content-table">
           <thead>
             <tr>

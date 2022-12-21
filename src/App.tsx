@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import './App.scss';
 import { Header } from './components/Header';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -10,17 +11,19 @@ export const App: React.FC = () => {
     <>
       <Header />
 
-      <Routes>
-        <Route path="*" element={<NotFoundPage />} />
+      <div className="container">
+        <Routes>
+          <Route path="*" element={<NotFoundPage />} />
 
-        <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
 
-        <Route path="users">
-          <Route index element={<UsersPage />} />
+          <Route path="users">
+            <Route index element={<UsersPage />} />
 
-          <Route path=":id" element={<UsersPage />} />
-        </Route>
-      </Routes>
+            <Route path=":id" element={<UsersPage />} />
+          </Route>
+        </Routes>
+      </div>
     </>
   );
 };

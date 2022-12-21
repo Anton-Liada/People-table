@@ -1477,20 +1477,12 @@
       "first_name": "Ricca",
       "last_name": "Britch",
       "email": "rbritch5h@a8.net",
-      "gender": "Female",
-      "address": "78 John Wall Pass"
+      "address": "78 John Wall Pass",
+      "gender": "Female"
     },
     {
       "id": 199,
-      "first_name": "fsdfsdf11",
-      "last_name": "Liada",
-      "email": "lyadaanton@gmail.com",
-      "address": "22 avenu street",
-      "gender": "male"
-    },
-    {
-      "id": 200,
-      "first_name": "Antondd",
+      "first_name": "Anton",
       "last_name": "Liada",
       "email": "liadaanton@gmail.com",
       "address": "22 avenu street",
