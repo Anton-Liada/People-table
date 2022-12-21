@@ -16,9 +16,9 @@ export const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
 
         <Route path="users">
-          <Route index element={(<UsersPage />)} />
+          <Route index element={<UsersPage />} />
 
-          <Route path=":id" element={(<UsersPage />)} />
+          <Route path=":id" element={<UsersPage />} />
         </Route>
       </Routes>
     </>

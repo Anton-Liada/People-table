@@ -1,41 +1,36 @@
-import React, { useState } from 'react'
-import { Button } from '../../components/Button'
-import { Modal } from '../../components/Modal'
-import { UsersList } from '../../components/UsersList'
+import React, { useState } from 'react';
+import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
+import { UsersList } from '../../components/UsersList';
+import { IUser } from '/src/types/types';
 
 export const UsersPage: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [currentUser, setCurrentUser] = useState<IUser | null>();
 
-  const handleOpenEditingModal = () => {
+  const handleOpenEditingModal = (user: IUser | null) => {
     setIsEditing(true);
+    setCurrentUser(user);
   };
 
   const handleOpenAddingModal = () => {
     setIsAdding(true);
   };
 
+  console.log(currentUser);
+
   return (
     <>
       <h2>Users Page</h2>
 
-      {isAdding &&
-        < Modal
-          setIsOpenModal={setIsAdding}
-          isAdding={isAdding}
-        />}
+      {isAdding && <Modal setIsOpenModal={setIsAdding} isAdding={isAdding} />}
 
-      {isEditing &&
-        <Modal
-          setIsOpenModal={setIsEditing}
-        />}
+      {isEditing && <Modal setIsOpenModal={setIsEditing} user={currentUser} />}
 
-      <Button
-        onClick={handleOpenAddingModal}
-        content="Add Person"
-      />
+      <Button onClick={handleOpenAddingModal} content="Add Person" />
 
       <UsersList isOpenModal={handleOpenEditingModal} />
     </>
-  )
-}
+  );
+};

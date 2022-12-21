@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InputErrors, Status } from '../../types/enums';
+import { addNewUser, updateUser } from '../../features/users/usersSlice';
+import { InputErrors } from '../../types/enums';
+import { IFormValues, IUser } from '../../types/types';
 import { Button } from '../Button';
 import './Modal.scss';
 import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
-import { addNewUser } from '/src/features/users/usersSlice';
-import { IFormValues, IUser } from '/src/types/types';
 
 type Props = {
   setIsOpenModal: (value: boolean) => void;
   isAdding?: boolean;
-  people?: IUser[];
+  user?: IUser | null;
 };
 
-export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding }) => {
+export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -22,8 +22,6 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding }) => {
 
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.users.users);
-  const requestStatus = useAppSelector(state => state.users.status);
-  const [addRequestStatus, setAddRequestStatus] = useState(Status.IDLE);
 
   const onSubmit: SubmitHandler<IFormValues> = data => data;
   const emailPattern = new RegExp(
@@ -33,12 +31,12 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding }) => {
   const addressPattern = new RegExp('[a-zA-Z0-9_.+-]');
 
   const defaultUser: IUser = {
-    id: 0,
-    first_name: '',
-    last_name: '',
-    email: '',
-    address: '',
-    gender: 'male',
+    id: user?.id || 0,
+    first_name: user?.first_name || '',
+    last_name: user?.last_name || '',
+    email: user?.email || '',
+    address: user?.address || '',
+    gender: user?.gender || 'male',
   };
 
   const [newUser, setNewUser] = useState(defaultUser);
@@ -66,7 +64,6 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding }) => {
   const handleCreate = async () => {
     if (isValid) {
       try {
-        setAddRequestStatus(Status.SUCCEEDED);
         await dispatch(
           addNewUser({
             id: Math.max(...users.map(user => user.id)) + 1,
@@ -80,15 +77,35 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding }) => {
 
         setNewUser(defaultUser);
       } catch (error) {
-        setAddRequestStatus(Status.FAILED);
-      } finally {
-        setAddRequestStatus(Status.IDLE);
+        console;
       }
     }
   };
 
   const handleUpdate = async () => {
-    console.log(1);
+    if (!user) {
+      return;
+    }
+
+    if (isValid) {
+      try {
+        await dispatch(
+          updateUser({
+            id: user.id,
+            first_name: newUser.first_name,
+            last_name: newUser.last_name,
+            email: newUser.email,
+            address: newUser.address,
+            gender: newUser.gender,
+          })
+        );
+
+        setNewUser(defaultUser);
+        setIsOpenModal(false);
+      } catch (error) {
+        throw new Error('error');
+      }
+    }
   };
 
   return (

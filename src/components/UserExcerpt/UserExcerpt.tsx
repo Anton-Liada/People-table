@@ -1,28 +1,21 @@
-import React from "react";
-import { deleteUser } from "../../features/users/usersSlice";
-import { IUser } from "../../types/types";
-import { Button } from "../Button";
-import { useAppDispatch } from "/src/features/hooks/hooks";
+import React from 'react';
+import { deleteUser } from '../../features/users/usersSlice';
+import { IUser } from '../../types/types';
+import { Button } from '../Button';
+import { useAppDispatch } from '/src/features/hooks/hooks';
 
 type Props = {
   user: IUser;
-  isOpenModal: () => void;
-}
+  isOpenModal: (value: IUser | null) => void;
+};
 
 export const UserExcerpt: React.FC<Props> = ({ user, isOpenModal }) => {
-  const {
-    id,
-    first_name,
-    last_name,
-    gender,
-    email,
-    address,
-  } = user;
+  const { id, first_name, last_name, gender, email, address } = user;
   const dispatch = useAppDispatch();
 
   const handleRemoveUser = async () => {
-    await dispatch(deleteUser(id))
-  }
+    await dispatch(deleteUser(id));
+  };
 
   return (
     <tr key={id}>
@@ -39,9 +32,11 @@ export const UserExcerpt: React.FC<Props> = ({ user, isOpenModal }) => {
       <td>{address}</td>
 
       <td>
-        <Button content="update" onClick={isOpenModal} />
-        <Button onClick={handleRemoveUser} content='delete' />
+        <button className="table-button" onClick={() => isOpenModal(user)}>
+          update
+        </button>
+        <Button onClick={handleRemoveUser} content="delete" />
       </td>
-    </tr >
+    </tr>
   );
 };

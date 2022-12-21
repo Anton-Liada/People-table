@@ -9,25 +9,37 @@ const initialState: IUsersState = {
   error: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers',
-  async () => {
-    const response = await axios.get('http://localhost:4000/users');
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+  const response = await axios.get('http://localhost:4000/users');
 
-    return response.data;
-  }
-);
+  return response.data;
+});
 
-export const addNewUser = createAsyncThunk('users/addNewUser',
+export const addNewUser = createAsyncThunk(
+  'users/addNewUser',
   async (newUser: IUser) => {
-    const response = await axios.post('http://localhost:4000/users', newUser)
+    const response = await axios.post('http://localhost:4000/users', newUser);
 
     return response.data;
   }
 );
 
-export const deleteUser = createAsyncThunk('users/deleteNewUser',
+export const updateUser = createAsyncThunk(
+  'users/updateUser',
+  async (user: IUser) => {
+    const response = await axios.put(
+      `http://localhost:4000/users/${user.id}`,
+      user
+    );
+
+    return response.data;
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  'users/deleteNewUser',
   async (id: number) => {
-    await axios.delete(`http://localhost:4000/users/${id}`)
+    await axios.delete(`http://localhost:4000/users/${id}`);
 
     return id;
   }
@@ -49,19 +61,40 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, setStatus)
-      .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
-        state.status = Status.SUCCEEDED;
-        state.users = action.payload;
-      })
+      .addCase(
+        fetchUsers.fulfilled,
+        (state, action: PayloadAction<IUser[]>) => {
+          state.status = Status.SUCCEEDED;
+          state.users = action.payload;
+        }
+      )
       .addCase(fetchUsers.rejected, setError);
 
     builder
       .addCase(addNewUser.pending, setStatus)
       .addCase(addNewUser.fulfilled, (state, action: PayloadAction<IUser>) => {
         state.status = Status.SUCCEEDED;
-        state.users.push(action.payload)
+        state.users.push(action.payload);
       })
       .addCase(addNewUser.rejected, setError);
+
+    builder
+      .addCase(updateUser.pending, setStatus)
+      .addCase(updateUser.fulfilled, (state, action: PayloadAction<IUser>) => {
+        state.status = Status.SUCCEEDED;
+        const { id, first_name, last_name, gender, address, email } =
+          action.payload;
+        const existingUser = state.users.find(user => user.id === id);
+
+        if (existingUser) {
+          existingUser.first_name = first_name;
+          existingUser.last_name = last_name;
+          existingUser.gender = gender;
+          existingUser.address = address;
+          existingUser.email = email;
+        }
+      })
+      .addCase(updateUser.rejected, setError);
 
     builder
       .addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) => {

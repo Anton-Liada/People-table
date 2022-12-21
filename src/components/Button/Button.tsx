@@ -8,11 +8,7 @@ type Props = {
 
 export const Button: React.FC<Props> = ({ onClick, content }) => {
   return (
-    <button
-      onClick={onClick}
-      type="submit"
-      className="modal-card__button"
-    >
+    <button onClick={onClick} type="submit" className="table-button">
       {content}
     </button>
   );
