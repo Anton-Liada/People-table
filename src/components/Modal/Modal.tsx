@@ -5,7 +5,6 @@ import { InputErrors, Status } from '../../types/enums';
 import { IFormValues, IUser } from '/src/types/types';
 import { addNewUser } from '/src/features/users/usersSlice';
 import { useAppDispatch, useAppSelector } from '/src/features/hooks/hooks';
-import { Loader } from '../Loader';
 import './Modal.scss';
 
 type Props = {

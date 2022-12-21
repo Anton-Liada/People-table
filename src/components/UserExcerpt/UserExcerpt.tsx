@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { deleteUser } from "../../features/users/usersSlice";
 import { IUser } from "../../types/types";
 import { Button } from "../Button";
