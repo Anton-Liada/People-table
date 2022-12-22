@@ -17,7 +17,7 @@ type Props = {
 export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
   const {
     register,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm<IFormValues>({ mode: 'onBlur' });
 
@@ -28,7 +28,7 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
   const emailPattern = new RegExp(
     '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$'
   );
-  const textPattern = new RegExp('[A-Za-z]');
+  const textPattern = new RegExp('^[a-zA-Z]+(?:\\s+[a-zA-Z]+)*$');
   const addressPattern = new RegExp('[a-zA-Z0-9_.+-]');
 
   const defaultUser: IUser = {

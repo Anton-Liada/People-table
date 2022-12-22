@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Status } from '../../types/enums';
 import { IUser, IUsersState } from '../../types/types';
-import { Status } from '/src/types/enums';
 
 const initialState: IUsersState = {
   users: [],

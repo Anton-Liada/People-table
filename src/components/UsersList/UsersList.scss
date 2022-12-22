@@ -77,3 +77,19 @@
 .content-table tbody tr:last-of-type {
   border-bottom: 2px solid #C7DAF0;
 }
+
+.pagination-list {
+  justify-content: center;
+}
+
+.pagination-link:focus,
+.pagination-previous:focus,
+.pagination-next:focus {
+  border-color: #4d698f;
+  background-color: #4d698f;
+  color: #fff;
+}
+
+.break a {
+  color: #000;
+}

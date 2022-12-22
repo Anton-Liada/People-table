@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import { useAppDispatch, useAppSelector } from '../../features/hooks/hooks';
 import { fetchUsers } from '../../features/users/usersSlice';
 import { Status } from '../../types/enums';
@@ -17,6 +18,8 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
   const fetchRequestStatus = useAppSelector(state => state.users.status);
   const errorMessage = useAppSelector(state => state.users.error);
   const [isLoading, setIsLoading] = useState(false);
+  const [itemsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     if (fetchRequestStatus === Status.IDLE) {
@@ -26,15 +29,26 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
     setIsLoading(true);
   }, [fetchRequestStatus, dispatch]);
 
+  const offset = currentPage * itemsPerPage;
+
   let content;
 
   if (fetchRequestStatus === Status.SUCCEEDED) {
-    const orderedUsers = users.slice().sort((a, b) => b.id - a.id);
+    const orderedUsers = users
+      .slice()
+      .sort((a, b) => b.id - a.id)
+      .slice(offset, offset + itemsPerPage);
 
     content = orderedUsers.map(user => (
       <UserExcerpt key={user.id} user={user} isOpenModal={isOpenModal} />
     ));
   }
+
+  const handlePageClick = ({ selected: selectedPage }: any) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const pageCount = Math.ceil(users.length / itemsPerPage);
 
   return (
     <>
@@ -59,6 +73,20 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
           <tbody>{content}</tbody>
         </table>
       )}
+
+      <ReactPaginate
+        previousLabel="prev"
+        nextLabel="next"
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        marginPagesDisplayed={3}
+        containerClassName="pagination-list"
+        previousLinkClassName="pagination-previous"
+        nextLinkClassName="pagination-next"
+        pageLinkClassName="pagination-link"
+        disabledClassName="pagination__link--disabled"
+        activeClassName="pagination__link-active"
+      />
     </>
   );
 };
