@@ -15,9 +15,9 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
 
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
 
-          <Route path="users">
+          <Route path="/">
             <Route index element={<UsersPage />} />
 
             <Route path=":id" element={<UsersPage />} />

@@ -19,3 +19,7 @@ export interface IFormValues {
   email: string;
   address: string;
 }
+
+export interface IOnPageChange {
+  selected: number;
+}

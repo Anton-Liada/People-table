@@ -20,16 +20,16 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<IFormValues>({ mode: 'onBlur' });
+  const onSubmit: SubmitHandler<IFormValues> = data => data;
 
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.users.users);
 
-  const onSubmit: SubmitHandler<IFormValues> = data => data;
+  const textPattern = new RegExp('^[a-zA-Z]+(?:\\s+[a-zA-Z]+)*$');
+  const addressPattern = new RegExp('[a-zA-Z0-9_.+-]');
   const emailPattern = new RegExp(
     '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$'
   );
-  const textPattern = new RegExp('^[a-zA-Z]+(?:\\s+[a-zA-Z]+)*$');
-  const addressPattern = new RegExp('[a-zA-Z0-9_.+-]');
 
   const defaultUser: IUser = {
     id: user?.id || 0,
@@ -77,6 +77,7 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
         );
 
         setNewUser(defaultUser);
+        setIsOpenModal(false);
       } catch (error) {
         console;
       }
@@ -89,23 +90,19 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
     }
 
     if (isValid) {
-      try {
-        await dispatch(
-          updateUser({
-            id: user.id,
-            first_name: newUser.first_name,
-            last_name: newUser.last_name,
-            email: newUser.email,
-            address: newUser.address,
-            gender: newUser.gender,
-          })
-        );
+      await dispatch(
+        updateUser({
+          id: user.id,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
+          email: newUser.email,
+          address: newUser.address,
+          gender: newUser.gender,
+        })
+      );
 
-        setNewUser(defaultUser);
-        setIsOpenModal(false);
-      } catch (error) {
-        throw new Error('error');
-      }
+      setNewUser(defaultUser);
+      setIsOpenModal(false);
     }
   };
 

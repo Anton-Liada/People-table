@@ -19,8 +19,6 @@ export const UsersPage: React.FC = () => {
     setIsAdding(true);
   };
 
-  console.log(currentUser);
-
   return (
     <>
       <div className="users-page-wrapper">
