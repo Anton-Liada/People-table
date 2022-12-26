@@ -1,1 +1,1 @@
-export * from './HeaderLink'
+export * from './HeaderLink';

@@ -10,7 +10,9 @@ const initialState: IUsersState = {
 };
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await axios.get('http://localhost:4000/users');
+  const response = await axios.get(
+    'https://crud-server-g9cq.onrender.com/users'
+  );
 
   return response.data;
 });
@@ -18,7 +20,10 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 export const addNewUser = createAsyncThunk(
   'users/addNewUser',
   async (newUser: IUser) => {
-    const response = await axios.post('http://localhost:4000/users', newUser);
+    const response = await axios.post(
+      'https://crud-server-g9cq.onrender.com/users',
+      newUser
+    );
 
     return response.data;
   }
@@ -28,7 +33,7 @@ export const updateUser = createAsyncThunk(
   'users/updateUser',
   async (user: IUser) => {
     const response = await axios.put(
-      `http://localhost:4000/users/${user.id}`,
+      `https://crud-server-g9cq.onrender.com/users/${user.id}`,
       user
     );
 
@@ -39,7 +44,7 @@ export const updateUser = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
   'users/deleteNewUser',
   async (id: number) => {
-    await axios.delete(`http://localhost:4000/users/${id}`);
+    await axios.delete(`https://crud-server-g9cq.onrender.com/users/${id}`);
 
     return id;
   }

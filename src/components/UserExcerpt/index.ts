@@ -1,1 +1,1 @@
-export * from './UserExcerpt'
+export * from './UserExcerpt';
