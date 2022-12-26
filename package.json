@@ -5,7 +5,7 @@
   "source": "public/index.html",
   "scripts": {
     "predeploy": "rm -rf build & npm run build",
-    "deploy": "gh-pages -d public",
+    "deploy": "gh-pages -d build",
     "start": "parcel -p 7000 --open",
     "server": "json-server -w ./src/server/data.json --port 4000",
     "dev": "concurrently \"npm run server\" \"npm start\"",
