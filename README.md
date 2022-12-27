@@ -1,6 +1,8 @@
 # People-table
 Implemented small application in React js + Typescript + Redux toolkit
 
+**--Here is [DEMO LINK](https://people-table.onrender.com/#/)**
+
 ## Setup
 
 Make sure to install the dependencies:
