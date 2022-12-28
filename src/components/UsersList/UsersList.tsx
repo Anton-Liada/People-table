@@ -34,7 +34,7 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
     return users.filter(({ last_name }) =>
       last_name?.toLowerCase().includes(value.toLowerCase())
     );
-  }, [value, fetchRequestStatus]);
+  }, [value, fetchRequestStatus, users]);
 
   let content;
 

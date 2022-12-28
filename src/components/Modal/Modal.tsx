@@ -44,7 +44,6 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
     return await dispatch(addNewUser(data));
   };
 
-
   const textPattern = new RegExp('^[a-zA-Z]+(?:\\s+[a-zA-Z]+)*$');
   const addressPattern = new RegExp('[a-zA-Z0-9_.+-]');
   const emailPattern = new RegExp(

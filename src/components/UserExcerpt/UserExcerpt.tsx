@@ -35,6 +35,7 @@ export const UserExcerpt: React.FC<Props> = ({ user, isOpenModal }) => {
         <button className="table-button" onClick={() => isOpenModal(user)}>
           update
         </button>
+        
         <Button onClick={handleRemoveUser} content="delete" />
       </td>
     </tr>
