@@ -1,5 +1,5 @@
 export interface IUser {
-  id: number;
+  id: number | 0;
   first_name: string;
   last_name: string;
   email: string;
@@ -11,13 +11,6 @@ export interface IUsersState {
   users: IUser[];
   status: string;
   error: string | null;
-}
-
-export interface IFormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
 }
 
 export interface IOnPageChange {

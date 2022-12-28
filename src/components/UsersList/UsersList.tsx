@@ -32,9 +32,9 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
 
   const filteredUsers = useMemo(() => {
     return users.filter(({ last_name }) =>
-      last_name.toLowerCase().includes(value.toLowerCase())
+      last_name?.toLowerCase().includes(value.toLowerCase())
     );
-  }, [value, users]);
+  }, [value, fetchRequestStatus]);
 
   let content;
 
@@ -54,7 +54,7 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
     setValue(event.target.value);
   };
 
-  const pageCount = Math.ceil(users.length / itemsPerPage);
+  const pageCount = Math.ceil(filteredUsers.length / itemsPerPage);
 
   return (
     <>
@@ -80,9 +80,9 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
                 <th className="content-table__th">ID</th>
                 <th className="content-table__th">Name</th>
                 <th className="content-table__th">Last Name</th>
-                <th className="content-table__th">Sex</th>
                 <th className="content-table__th">Email</th>
                 <th className="content-table__th">Address</th>
+                <th className="content-table__th">Sex</th>
                 <th className="content-table__th">Actions</th>
               </tr>
             </thead>

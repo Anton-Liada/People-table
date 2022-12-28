@@ -25,11 +25,11 @@ export const UserExcerpt: React.FC<Props> = ({ user, isOpenModal }) => {
 
       <td>{last_name}</td>
 
-      <td>{gender}</td>
-
       <td>{email}</td>
 
       <td>{address}</td>
+
+      <td>{gender}</td>
 
       <td>
         <button className="table-button" onClick={() => isOpenModal(user)}>

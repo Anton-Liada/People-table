@@ -18,8 +18,9 @@
     border: 1px solid #C7DAF0;
     border-radius: 3px;
     transition: border-color 0.3s;
+    outline: none;
 
-    &:hover{
+    &:hover {
       border-color: rgb(81, 151, 231);
     }
   }
@@ -62,4 +63,12 @@
 .modal-card-title {
   font-size: 1.6rem;
   font-weight: 800;
+}
+
+.danger {
+  border: 1px solid #DC3545;
+}
+
+.success {
+  border: 1px solid #28A745;
 }

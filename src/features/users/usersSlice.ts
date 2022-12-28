@@ -11,7 +11,7 @@ const initialState: IUsersState = {
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await axios.get(
-    'https://crud-server-g9cq.onrender.com/users'
+    'https://crud-server-users.onrender.com/users'
   );
 
   return response.data;
@@ -21,11 +21,14 @@ export const addNewUser = createAsyncThunk(
   'users/addNewUser',
   async (newUser: IUser) => {
     const response = await axios.post(
-      'https://crud-server-g9cq.onrender.com/users',
+      'https://crud-server-users.onrender.com/users',
       newUser
     );
 
-    return response.data;
+    console.log('newUser', newUser)
+    console.log('response',response.data)
+
+    return newUser;
   }
 );
 
@@ -33,7 +36,7 @@ export const updateUser = createAsyncThunk(
   'users/updateUser',
   async (user: IUser) => {
     const response = await axios.put(
-      `https://crud-server-g9cq.onrender.com/users/${user.id}`,
+      `https://crud-server-users.onrender.com/users/${user.id}`,
       user
     );
 
@@ -44,7 +47,7 @@ export const updateUser = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
   'users/deleteNewUser',
   async (id: number) => {
-    await axios.delete(`https://crud-server-g9cq.onrender.com/users/${id}`);
+    await axios.delete(`https://crud-server-users.onrender.com/users/${id}`);
 
     return id;
   }
@@ -67,8 +70,7 @@ const usersSlice = createSlice({
     builder
       .addCase(fetchUsers.pending, setStatus)
       .addCase(
-        fetchUsers.fulfilled,
-        (state, action: PayloadAction<IUser[]>) => {
+        fetchUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
           state.status = Status.SUCCEEDED;
           state.users = action.payload;
         }
@@ -77,10 +79,13 @@ const usersSlice = createSlice({
 
     builder
       .addCase(addNewUser.pending, setStatus)
-      .addCase(addNewUser.fulfilled, (state, action: PayloadAction<IUser>) => {
-        state.status = Status.SUCCEEDED;
-        state.users.push(action.payload);
-      })
+      .addCase(
+        addNewUser.fulfilled, (state, action: PayloadAction<IUser>) => {
+          state.status = Status.SUCCEEDED;
+          console.log(action.payload)
+          state.users.push({ ...action.payload });
+        }
+      )
       .addCase(addNewUser.rejected, setError);
 
     builder
