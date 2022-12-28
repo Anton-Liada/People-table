@@ -25,10 +25,7 @@ export const addNewUser = createAsyncThunk(
       newUser
     );
 
-    console.log('newUser', newUser)
-    console.log('response',response.data)
-
-    return newUser;
+    return response.data;
   }
 );
 
@@ -82,7 +79,6 @@ const usersSlice = createSlice({
       .addCase(
         addNewUser.fulfilled, (state, action: PayloadAction<IUser>) => {
           state.status = Status.SUCCEEDED;
-          console.log(action.payload)
           state.users.push({ ...action.payload });
         }
       )

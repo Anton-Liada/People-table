@@ -31,10 +31,14 @@ export const UsersList: React.FC<Props> = ({ isOpenModal }) => {
   const offset = currentPage * itemsPerPage;
 
   const filteredUsers = useMemo(() => {
+    if (value) {
+      setCurrentPage(0);
+    }
+
     return users.filter(({ last_name }) =>
       last_name?.toLowerCase().includes(value.toLowerCase())
     );
-  }, [value, fetchRequestStatus, users]);
+  }, [value, users]);
 
   let content;
 

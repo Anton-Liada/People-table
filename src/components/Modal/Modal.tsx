@@ -36,7 +36,7 @@ export const Modal: React.FC<Props> = ({ setIsOpenModal, isAdding, user }) => {
 
   const onSubmit: SubmitHandler<IUser> = async (data) => {
     setIsOpenModal(false)
-    console.log('data', data)
+
     if (!isAdding) {
       return await dispatch(updateUser(data));
     }
