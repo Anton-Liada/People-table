@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "parcel -p 7000 --open",
     "server": "json-server -w ./src/server/data.json --port 4000",
-    "build": "parcel build",
+    "build": "parcel build public/index.html --public-url /parcel-deploy-tutorial/",
     "checkformat": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
