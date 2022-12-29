@@ -1,7 +1,8 @@
 # People-table
+I use free hosting, please wait until the data is downloaded :)
 Implemented small application in React js + Typescript + Redux toolkit
 
-**--Here is [DEMO LINK](https://people-table.onrender.com/#/)**
+**--Here is [DEMO LINK](https://Anton-Liada.github.io/People-table/)**
 
 ## Setup
 
